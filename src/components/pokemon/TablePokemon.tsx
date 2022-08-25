@@ -1,28 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {Pokemon} from '../../interfaces/interfaces';
-import {getPokemonsService} from '../../services/pokemonService';
+import React from 'react';
+import {useGetDataPokemons} from '../../hooks/useGetDataPokemons';
 import {ItemTablePokemon} from './ItemTablePokemon';
 
 export const TablePokemon = () => {
-  const [loading, setLoading] = useState(false);
-  const [dataPokemon, setDataPokemon] = useState<Pokemon[]>([]);
-
-  const getPokemons = async () => {
-    console.log('entro');
-    setLoading(true);
-    const data = await getPokemonsService();
-    if (data) {
-      setDataPokemon(data);
-    } else {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (!dataPokemon.length) {
-      getPokemons();
-    }
-  }, [dataPokemon]);
+  const {loading, dataPokemon} = useGetDataPokemons();
 
   if (loading && !dataPokemon.length) {
     return <div>Cargando ...</div>;

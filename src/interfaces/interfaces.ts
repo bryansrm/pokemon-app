@@ -8,3 +8,9 @@ export interface Pokemon {
   type: string;
   id_author: number;
 }
+
+export interface AppState {
+  searchText: string;
+  pokemons: Pokemon[];
+  selectedPokemon: number | null;
+}
