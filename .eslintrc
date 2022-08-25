@@ -39,6 +39,8 @@
         "react/function-component-definition": "off",
         "import/no-unresolved": "off",
         "import/extensions": "off",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-props-no-spreading": "off"
     }
 }

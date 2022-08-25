@@ -5,6 +5,7 @@
 }
 
 body {
+  background-color: #fbfbfb;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -18,7 +19,7 @@ body {
 .App {
   text-align: center;
   display: grid;
-  grid-template-rows: 120px 1fr 50px;
+  grid-template-rows: 80px 1fr 50px;
   height: 100vh;
   margin: auto;
   max-width: 1200px;
@@ -34,7 +35,7 @@ footer {
 
 h1 {
   color: var(--principal-color);
-  font-size: 3em;
+  font-size: 2.5em;
 }
 
 h3 {
@@ -69,6 +70,7 @@ table, th, td {
 }
 
 .content-form-input {
+  background-color: #fff;
   border: 2px solid var(--color-gray);
   border-radius: 5px;
   display: flex;
@@ -96,7 +98,10 @@ table, th, td {
 
 /* TABLE */
 .section-table {
+  background-color: #fff;
   margin-top: 2em;
+  overflow-y: auto;
+  max-height: 300px;
 }
 
 .table-pokemon {
@@ -137,4 +142,59 @@ table, th, td {
   cursor: pointer;
   height: 17px;
   width: 17px;
+}
+
+
+/* FORM */
+.content-form {
+  background-color: #fff;
+  border: 2px solid var(--color-gray);
+  margin-top: 2em;
+  padding: 1em;
+}
+
+.content-form h4 {
+  margin: 0.5em;
+}
+
+.content-form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-form form > div:first-child {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 1em;
+  justify-content: center;
+  align-items: center;
+  margin: 2em 0;
+  width: 100%;
+}
+
+.content-form form > div:last-child {
+  display: flex;
+  gap: 1em;
+}
+
+.form-group {
+  display: flex;
+  gap: 1em;  
+  align-items: center;
+  justify-content: center;
+}
+
+.form-group .form-input {
+  border: 2px solid var(--color-gray);
+  border-radius: 5px;
+  padding: .5em;
+}
+
+.form-group .form-input:focus-visible {
+  outline: none;
+}
+
+.form-group .form-input::placeholder {
+  color: var(--color-gray);
 }
