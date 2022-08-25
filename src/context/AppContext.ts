@@ -6,7 +6,7 @@ export type AppContextProps = {
   appState: AppState;
   setSearchText: (query: string) => void;
   setPokemons: (pokemon: Pokemon[]) => void;
-  setSelectedPokemon: (id: number | null) => void;
+  setSelectedPokemon: (pokemon: Pokemon | null) => void;
   deletePokemon: (id: number) => void;
 };
 

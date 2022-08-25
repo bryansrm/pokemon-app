@@ -12,5 +12,5 @@ export interface Pokemon {
 export interface AppState {
   searchText: string;
   pokemons: Pokemon[];
-  selectedPokemon: number | null;
+  selectedPokemon: Pokemon | null;
 }

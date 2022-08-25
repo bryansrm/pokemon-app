@@ -25,8 +25,8 @@ export const AppProvider = ({children}: props) => {
     dispatch({type: 'setPokemos', payload: sellers});
   };
 
-  const setSelectedPokemon = (id: number | null) => {
-    dispatch({type: 'setSelectedPokemon', payload: id});
+  const setSelectedPokemon = (pokemon: Pokemon | null) => {
+    dispatch({type: 'setSelectedPokemon', payload: pokemon});
   };
 
   const deletePokemon = (id: number) => {

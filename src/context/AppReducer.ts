@@ -3,7 +3,7 @@ import {AppState, Pokemon} from '../interfaces/interfaces';
 type AppAction =
   | {type: 'setSearchText'; payload: string}
   | {type: 'setPokemos'; payload: Pokemon[]}
-  | {type: 'setSelectedPokemon'; payload: number | null}
+  | {type: 'setSelectedPokemon'; payload: Pokemon | null}
   | {type: 'deletePokemon'; payload: number};
 
 export const appReducer = (state: AppState, action: AppAction): AppState => {

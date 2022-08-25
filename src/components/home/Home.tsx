@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
-import {ButtonPrimary} from '../buttons/ButtonPrimary';
+import React, {useContext, useState} from 'react';
+import {AppContext} from '../../context/AppContext';
+
 import {FormPokemon} from '../pokemon/FormPokemon';
 import {SearchPokemon} from '../pokemon/SearchPokemon';
 import {TablePokemon} from '../pokemon/TablePokemon';
+import {ButtonPrimary} from '../buttons/ButtonPrimary';
 
 export const Home = () => {
+  const {appState, setSelectedPokemon} = useContext(AppContext);
+  const {selectedPokemon} = appState;
   const [showForm, setShowForm] = useState(false);
 
   const handleShowForm = (value: boolean) => {
+    setSelectedPokemon(null);
     setShowForm(value);
   };
 
@@ -21,9 +26,9 @@ export const Home = () => {
       <section className="section-table">
         <TablePokemon />
       </section>
-      {showForm && (
+      {(showForm || !!selectedPokemon) && (
         <section className="section-form">
-          <FormPokemon callbackShowForm={handleShowForm} />
+          <FormPokemon callbackShowForm={handleShowForm} dataPokemon={selectedPokemon} />
         </section>
       )}
     </>

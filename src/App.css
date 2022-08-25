@@ -69,6 +69,10 @@ table, th, td {
   width: 12px;
 }
 
+.button-icon {
+  all: unset;
+}
+
 .content-form-input {
   background-color: #fff;
   border: 2px solid var(--color-gray);
@@ -111,9 +115,10 @@ table, th, td {
 }
 
 .table-pokemon thead {
-  top: 0;
   background: #fff;
   box-shadow: 0 2px 2px -1px rgb(0 0 0 / 40%);
+  top: 0;
+  position: sticky;
 }
 
 .table-pokemon thead th {
@@ -121,7 +126,7 @@ table, th, td {
 }
 
 .table-pokemon tbody td {
-  padding: 0 0.5em;
+  padding: 0.5em;
 }
 
 .table-pokemon tbody td.text-left {
