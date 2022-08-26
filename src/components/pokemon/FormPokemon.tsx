@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import {AppContext} from '../../context/AppContext';
+import {validateFormPokemon} from '../../helper/validationHelper';
 import {useForm} from '../../hooks/useForm';
 import {useGetDataPokemons} from '../../hooks/useGetDataPokemons';
 import {Pokemon} from '../../interfaces/interfaces';
 import {createPokemonService, updatePokemonService} from '../../services/pokemonService';
+import {Alert} from '../alerts/Alert';
 
 import {ButtonPrimary} from '../buttons/ButtonPrimary';
 
@@ -16,9 +18,18 @@ type FormPokemonProps = {
   callbackShowForm: (value: boolean) => void;
 };
 
+type AlertProps = {
+  show: boolean;
+  type: 'success' | 'error';
+  message: string;
+};
+
 export const FormPokemon = ({dataPokemon, callbackShowForm}: FormPokemonProps) => {
+  const initialDataAlert: AlertProps = {show: false, type: 'success', message: ''};
   const {appState, setSelectedPokemon} = useContext(AppContext);
   const {selectedPokemon} = appState;
+  const [dataAlert, setDataAlert] = useState<AlertProps>(initialDataAlert);
+  const [requiredData, setRequiredData] = useState(false);
   const {getPokemons} = useGetDataPokemons();
   const initialState = {
     name: '',
@@ -28,11 +39,6 @@ export const FormPokemon = ({dataPokemon, callbackShowForm}: FormPokemonProps) =
   };
   const {valuesForm, handleInputChange, updateState, reset} = useForm(initialState);
 
-  useEffect(() => {
-    updateState(dataPokemon || initialState);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataPokemon]);
-
   const handleCancel = () => {
     callbackShowForm(false);
     setSelectedPokemon(null);
@@ -41,6 +47,13 @@ export const FormPokemon = ({dataPokemon, callbackShowForm}: FormPokemonProps) =
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setRequiredData(false);
+    const validate = validateFormPokemon(valuesForm);
+    if (!validate) {
+      setRequiredData(true);
+      return;
+    }
+
     let data;
     if (dataPokemon) {
       data = await updatePokemonService(dataPokemon.id, valuesForm);
@@ -50,18 +63,48 @@ export const FormPokemon = ({dataPokemon, callbackShowForm}: FormPokemonProps) =
 
     if (data) {
       getPokemons();
-      handleCancel();
+      setDataAlert({
+        show: true,
+        type: 'success',
+        message: dataPokemon ? 'El pokemon se actualizó con éxito' : 'El pokemon se agregó con éxito'
+      });
+    } else {
+      setDataAlert({
+        show: true,
+        type: 'error',
+        message: dataPokemon ? 'Ocurrió un error al actualizar el pokemon' : 'Ocurrio un error al agregar el pokemon'
+      });
     }
   };
 
+  useEffect(() => {
+    updateState(dataPokemon || initialState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataPokemon]);
+
+  useEffect(() => {
+    if (dataAlert.show) {
+      setTimeout(() => {
+        handleCancel();
+      }, 2000);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataAlert.show]);
+
+  if (dataAlert.show) {
+    return <Alert type={dataAlert.type} message={dataAlert.message} />;
+  }
+
   return (
     <div className="content-form">
-      <h4>{`${selectedPokemon ? 'Editar Pokemon' : 'Nuevo Pokemon'}`}</h4>
+      <h4 aria-label="title">{`${selectedPokemon ? 'Editar Pokemon' : 'Nuevo Pokemon'}`}</h4>
       <form aria-label="form-pokemon" onSubmit={handleSubmit}>
         <div>
           <div className="form-group">
             <label htmlFor="123">Nombre:</label>
             <input
+              aria-label="input-name"
               type="text"
               className="form-input"
               placeholder="Nombre"
@@ -74,6 +117,7 @@ export const FormPokemon = ({dataPokemon, callbackShowForm}: FormPokemonProps) =
           <div className="form-group">
             <label htmlFor="123">Ataque:</label>
             <input
+              aria-label="input-attack"
               type="range"
               max={100}
               name="attack"
@@ -85,6 +129,7 @@ export const FormPokemon = ({dataPokemon, callbackShowForm}: FormPokemonProps) =
           <div className="form-group">
             <label htmlFor="123">Imagen:</label>
             <input
+              aria-label="input-image"
               type="text"
               className="form-input"
               placeholder="Url"
@@ -97,6 +142,7 @@ export const FormPokemon = ({dataPokemon, callbackShowForm}: FormPokemonProps) =
           <div className="form-group">
             <label htmlFor="123">Defensa:</label>
             <input
+              aria-label="input-defense"
               type="range"
               max={100}
               name="defense"
@@ -106,9 +152,14 @@ export const FormPokemon = ({dataPokemon, callbackShowForm}: FormPokemonProps) =
             />
           </div>
         </div>
+        {requiredData && (
+          <div className="content-error" aria-label="content-error">
+            Debe ingresar todos los campos del formulario
+          </div>
+        )}
         <div>
-          <ButtonPrimary isSubmit image="icons/save.png" text="Guardar" />
-          <ButtonPrimary image="icons/close.png" text="Cancelar" onClick={handleCancel} />
+          <ButtonPrimary aria-label="button-save" isSubmit image="icons/save.png" text="Guardar" />
+          <ButtonPrimary aria-label="button-cancel" image="icons/close.png" text="Cancelar" onClick={handleCancel} />
         </div>
       </form>
     </div>

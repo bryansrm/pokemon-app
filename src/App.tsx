@@ -1,6 +1,10 @@
 import React from 'react';
-import './App.css';
 import {Home} from './components/home/Home';
+
+import './App.css';
+import './css/Table.css';
+import './css/Form.css';
+import './css/Alert.css';
 
 const App = () => {
   return (

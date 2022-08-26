@@ -9,6 +9,7 @@ type ItemTablePokemonProps = {
 };
 
 export const ItemTablePokemon = ({pokemon}: ItemTablePokemonProps) => {
+  const defaultImage = 'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg';
   const {setSelectedPokemon, deletePokemon} = useContext(AppContext);
 
   const handleDeletePokemon = async (id: number) => {
@@ -34,7 +35,18 @@ export const ItemTablePokemon = ({pokemon}: ItemTablePokemonProps) => {
         {pokemon.name}
       </td>
       <td>
-        <img aria-label="img-image" className="img-pokemon" src={pokemon.image} alt={pokemon.name} />
+        <img
+          aria-label="img-image"
+          className="img-pokemon"
+          src={pokemon.image || defaultImage}
+          alt={pokemon.name}
+          onError={({currentTarget}) => {
+            // eslint-disable-next-line no-param-reassign
+            currentTarget.onerror = null; // prevents looping
+            // eslint-disable-next-line no-param-reassign
+            currentTarget.src = defaultImage;
+          }}
+        />
       </td>
       <td aria-label="td-attack" className="text-left">
         {pokemon.attack}
