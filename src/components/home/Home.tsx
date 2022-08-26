@@ -21,7 +21,13 @@ export const Home = () => {
       <h3>Listado de Pokemón</h3>
       <section className="section-search">
         <SearchPokemon />
-        <ButtonPrimary image="icons/add.png" altImage="nuevo" text="Nuevo" onClick={() => handleShowForm(true)} />
+        <ButtonPrimary
+          aria-label="button-new"
+          image="icons/add.png"
+          altImage="nuevo"
+          text="Nuevo"
+          onClick={() => handleShowForm(true)}
+        />
       </section>
       <section className="section-table">
         <TablePokemon />

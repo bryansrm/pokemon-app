@@ -57,7 +57,7 @@ export const FormPokemon = ({dataPokemon, callbackShowForm}: FormPokemonProps) =
   return (
     <div className="content-form">
       <h4>{`${selectedPokemon ? 'Editar Pokemon' : 'Nuevo Pokemon'}`}</h4>
-      <form onSubmit={handleSubmit}>
+      <form aria-label="form-pokemon" onSubmit={handleSubmit}>
         <div>
           <div className="form-group">
             <label htmlFor="123">Nombre:</label>

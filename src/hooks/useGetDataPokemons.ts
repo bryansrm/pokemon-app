@@ -13,7 +13,7 @@ export const useGetDataPokemons = () => {
     setLoading(true);
     const data = await getPokemonsService();
     if (data) {
-      // setDataPokemon(data);
+      setDataPokemon(data);
       setPokemons(data);
       setLoading(false);
     } else {
