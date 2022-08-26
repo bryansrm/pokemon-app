@@ -116,15 +116,19 @@ export const FormPokemon = ({dataPokemon, callbackShowForm}: FormPokemonProps) =
           </div>
           <div className="form-group">
             <label htmlFor="123">Ataque:</label>
-            <input
-              aria-label="input-attack"
-              type="range"
-              max={100}
-              name="attack"
-              id="attack"
-              value={valuesForm.attack}
-              onChange={handleInputChange}
-            />
+            <div className="content-input-range">
+              <span>{valuesForm.attack}</span>
+              <input
+                aria-label="input-attack"
+                type="range"
+                max={100}
+                name="attack"
+                id="attack"
+                value={valuesForm.attack}
+                onChange={handleInputChange}
+              />
+              <span>100</span>
+            </div>
           </div>
           <div className="form-group">
             <label htmlFor="123">Imagen:</label>
@@ -141,15 +145,19 @@ export const FormPokemon = ({dataPokemon, callbackShowForm}: FormPokemonProps) =
           </div>
           <div className="form-group">
             <label htmlFor="123">Defensa:</label>
-            <input
-              aria-label="input-defense"
-              type="range"
-              max={100}
-              name="defense"
-              id="defense"
-              value={valuesForm.defense}
-              onChange={handleInputChange}
-            />
+            <div className="content-input-range">
+              <span>{valuesForm.defense}</span>
+              <input
+                aria-label="input-defense"
+                type="range"
+                max={100}
+                name="defense"
+                id="defense"
+                value={valuesForm.defense}
+                onChange={handleInputChange}
+              />
+              <span>100</span>
+            </div>
           </div>
         </div>
         {requiredData && (

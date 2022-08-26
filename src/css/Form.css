@@ -53,3 +53,9 @@
   .form-group .form-input::placeholder {
     color: var(--color-gray);
   }
+
+  .content-input-range {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+  }
